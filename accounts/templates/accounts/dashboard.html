@@ -1,0 +1,80 @@
+{%  extends 'accounts/main.html' %}
+
+{% block 'content' %}
+
+{%  include 'parts/status.html' %}
+
+<br>
+
+<div style="padding: 20px;" class="row">
+	<div class="col-md-5">
+		<h5>CUSTOMERS:</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'createCustomer' %}">Create Customer</a>
+			<table class="table table-sm">
+				<thead>
+					<tr>
+						<th>Customer</th>
+						<th>Phone</th>
+						<th>Information</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for customer in customers %}
+					<tr>
+						
+						<td>{{customer.name}}</td>
+						{% if customer.phone %}
+						<td>{{customer.phone}}</td>
+						{% else %}
+						<td>N/A</td>
+						{% endif %}
+						<td><a class="btn btn-sm btn-info" href="{% url 'customers' customer.id %}">View</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				
+				
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>LAST 5 ORDERS</h5>
+		<hr>
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Product</th>
+					<th>Date Orderd</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+				{% for order in orders|slice:'5' %}
+				<tr>
+					<td>{{order.product}}</th>
+					<td>{{order.date_created}}</th>
+
+					{% if order.status == 'Pending' %}
+						<td class="text-warning">{{order.status}}</th>
+					{% elif  order.status == 'Deliverd'	%}
+						<td class="text-success">{{order.status}}</th>
+					{% else %}
+						<td class="text-danger">{{order.status}}</th>
+					{% endif %}
+						
+					<td><a class="btn btn-sm btn-info" href="{% url 'update' order.id %}">Update</a></td>
+					<td><a class="btn btn-sm btn-danger" href="{% url 'delete' order.id %}">Delete</a></td>
+	
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}

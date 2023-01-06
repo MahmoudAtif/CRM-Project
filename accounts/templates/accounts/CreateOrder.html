@@ -1,0 +1,17 @@
+{% extends 'accounts/main.html' %}
+{% block 'content' %}
+
+<div class="container">
+    <br>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="col-5">
+            <div class="row">   
+                {{form.as_p}}
+            </div>
+
+        </div>
+       <a href=""> <input class="btn btn-primary" type="submit" value="Create Order"></a>
+    </form>
+</div>
+{% endblock %}

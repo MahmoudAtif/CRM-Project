@@ -1,0 +1,18 @@
+{% extends 'accounts/main.html' %}
+{% block 'content' %}
+
+<div class="container">
+    <br>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <p>Are You Sure to delete order</p>
+        {% if request.user.is_staff %}
+            <a href="{% url 'home' %}" type="submit" class="btn btn-info"> Cancel</a>
+        {% else %}
+            <a href="{% url 'user' %}" type="submit" class="btn btn-info"> Cancel</a>
+        {% endif %}
+       <input class="btn btn-danger" type="submit" value="Delete">
+    </form>
+</div>
+<br>
+{% endblock %}
